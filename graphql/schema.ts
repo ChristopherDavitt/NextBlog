@@ -7,6 +7,7 @@ export const typeDefs = gql`
     markdown: String
     author: Author
     authorId: Int
+    slug: String
     tags: [Tag]
     created_at: String
     updated_at: String

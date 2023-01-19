@@ -2,7 +2,7 @@ import { Post } from "@prisma/client";
 import prisma from "../lib/prisma";
 
 export const resolvers = {
-  Query: {
+  Query: { 
     posts: async () => await prisma.post.findMany(),
   },
   Post: {
