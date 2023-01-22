@@ -1,3 +1,5 @@
+import prisma from "../../lib/prisma";
+
 const Blog = () => {
   return (
     <>
@@ -5,4 +7,5 @@ const Blog = () => {
     </>
   );
 }
+
 export default Blog;

@@ -2,18 +2,16 @@ import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import BlogLayout from "../../../layout/BlogLayout";
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import prisma from "../../../lib/prisma";
 
-const Page = ({ source }) => {
-  const router = useRouter();
-  const slug = router.query.slug as string;
+const Page = ({ source }:  { source: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>> }) => {
   return (<MDXRemote {...source } />);
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context: any) {
   const slug = context.params.slug;
-  const source = await prisma.post.findUnique({
+  const source = await prisma.post.findFirst({
     where: {
       slug: slug,
     },
@@ -21,8 +19,24 @@ export async function getStaticProps(context) {
       markdown: true,
     },
   })
-  const mdxSource = await serialize(source);
+  const mdxSource = await serialize(source?.markdown || 'This Blog Does Not Exist');
   return { props: { source: mdxSource }};
+}
+
+export async function getStaticPaths() {
+  const paths = await prisma.post.findMany({
+    where: { 
+      published: true
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  return {
+    paths: paths.map((path) => { return {params: { slug: path.slug }}}),
+    fallback: false,
+  }
 }
 
 Page.getLayout = function getLayout(page: ReactElement) {
