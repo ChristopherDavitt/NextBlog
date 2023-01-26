@@ -4,9 +4,10 @@ import BlogLayout from "../../../layout/BlogLayout";
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import prisma from "../../../lib/prisma";
+import markdownComponents from "../../../components/MarkdownComponents";
 
 const Page = ({ source }:  { source: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>> }) => {
-  return (<MDXRemote {...source } />);
+  return (<MDXRemote components={markdownComponents} {...source } />);
 }
 
 export async function getStaticProps(context: any) {
@@ -19,7 +20,7 @@ export async function getStaticProps(context: any) {
       markdown: true,
     },
   })
-  const mdxSource = await serialize(source?.markdown || 'This Blog Does Not Exist');
+  const mdxSource = await serialize(source?.markdown || 'This Blog Post Does Not Exist');
   return { props: { source: mdxSource }};
 }
 
