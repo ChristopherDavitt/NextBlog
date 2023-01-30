@@ -3,8 +3,8 @@ import { ReactElement } from "react";
 import BlogLayout from "../../../layout/BlogLayout";
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { markdownComponents } from "../../../components/markdown-components";
 import prisma from "../../../lib/prisma";
-import markdownComponents from "../../../components/MarkdownComponents";
 
 const Page = ({ source }:  { source: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>> }) => {
   return (<MDXRemote components={markdownComponents} {...source } />);

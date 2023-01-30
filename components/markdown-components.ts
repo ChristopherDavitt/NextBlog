@@ -38,7 +38,7 @@ const hr = withStyle(Divider, {
   color: 'gray.300',
 });
 
-const markdownComponents = {
+export const markdownComponents = {
   h1,
   h2,
   h3,
@@ -48,5 +48,3 @@ const markdownComponents = {
   p,
   hr,
 }
-
-export default markdownComponents;

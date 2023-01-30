@@ -47,7 +47,7 @@ export type NavItems = {
 };
 
 const NavContainer = withStyle('header', { 
-  width: '100vw',
+  maxWidth: '100vw',
   height: '60px',
   borderBottom: '1px solid',
   borderColor: 'cma.gray',

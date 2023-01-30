@@ -101,7 +101,7 @@ const BlogLayout = ({children}: {children: React.ReactNode}) => {
   return (
     <Blade>
       <Flex flexDir="row" justify="space-around">
-        <div style={{ width: '800px', border: 'solid 1px red'}}>
+        <div style={{ width: '800px' }}>
           {children}
         </div>
         <SideBar>
